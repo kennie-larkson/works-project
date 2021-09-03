@@ -7,8 +7,8 @@ const authMiddleware = require("../middleware/auth");
 const formValidation = require("../middleware/form-validation");
 
 router.route("/register").post(basicRegister);
-router.route("/complete-registration").post(formValidation, fullRegister);
-router.route("/dashboard").get(authMiddleware, dashboard);
-router.route("/login").post(login);
+router.route("/complete-registration").post(authMiddleware, formValidation, fullRegister);
+//router.route("/dashboard").get(authMiddleware, dashboard);
+//router.route("/login").post(login);
 
 module.exports = router;
