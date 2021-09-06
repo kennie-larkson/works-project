@@ -4,31 +4,24 @@ const bcrypt = require("bcrypt");
 const url = process.env.MONGO_URL;
 const SALT_WORK_FACTOR = 10;
 
-// const connectDB = async () => {
-//   try {
-//     return mongoose.connect(
-//       url,
-//       {
-//         useNewUrlParser: true,
-//         useCreateIndex: true,
-//         useFindAndModify: false,
-//         useUnifiedTopology: true,
-//       },
-//       () => console.log("Database connection successful...")
-//     );
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
+const connectDB = () => {
+  mongoose
+    .connect(url, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      useCreateIndex: true,
+      useFindAndModify: false,
+    })
+    .then(() => {
+      console.log("Successfully connected to database");
+    })
+    .catch((error) => {
+      console.log("database connection failed. exiting now...");
+      console.error(error);
+      process.exit(1);
+    });
+};
 
-function connectDB() {
-  mongoose.connect(url, {
-    useNewUrlParser: true,
-    useCreateIndex: true,
-    useFindAndModify: true,
-    useUnifiedTopology: true,
-  });
-}
 
 const staffSchema = new mongoose.Schema({
   email: {
