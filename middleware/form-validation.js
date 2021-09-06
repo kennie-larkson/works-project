@@ -25,13 +25,27 @@ function fieldValidation(req, res, next) {
       throw new BadRequestError(`Please select a gender from the options`);
     }
 
-    // console.log(req.body);
-    // req.body = user
     next();
-    // return req.body
   } catch (error) {
     res.status(400).json({ status: false, message: error.message });
   }
 }
 
-module.exports = fieldValidation;
+function loginValidation(req, res, next) {
+  const { username, password } = req.body;
+
+  try {
+    if (!username) {
+      throw new BadRequestError(`Please enter your username to login`);
+    }
+
+    if (!password) {
+      throw new BadRequestError(`Please enter your password to login`);
+    }
+    next();
+  } catch (error) {
+    res.status(400).json({ status: false, error: error.message });
+  }
+}
+
+module.exports = { fieldValidation, loginValidation };
