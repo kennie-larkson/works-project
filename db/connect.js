@@ -4,22 +4,31 @@ const bcrypt = require("bcrypt");
 const url = process.env.MONGO_URL;
 const SALT_WORK_FACTOR = 10;
 
-const connectDB = async () => {
-  try {
-    return mongoose.connect(
-      url,
-      {
-        useNewUrlParser: true,
-        useCreateIndex: true,
-        useFindAndModify: false,
-        useUnifiedTopology: true,
-      },
-      () => console.log("Database connection successful...")
-    );
-  } catch (error) {
-    console.log(error);
-  }
-};
+// const connectDB = async () => {
+//   try {
+//     return mongoose.connect(
+//       url,
+//       {
+//         useNewUrlParser: true,
+//         useCreateIndex: true,
+//         useFindAndModify: false,
+//         useUnifiedTopology: true,
+//       },
+//       () => console.log("Database connection successful...")
+//     );
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
+
+function connectDB() {
+  mongoose.connect(url, {
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useFindAndModify: true,
+    useUnifiedTopology: true,
+  });
+}
 
 const staffSchema = new mongoose.Schema({
   email: {
@@ -59,7 +68,6 @@ staffSchema.pre("save", function (next) {
     });
   });
 });
-
 
 const Staff = mongoose.model("staff", staffSchema);
 

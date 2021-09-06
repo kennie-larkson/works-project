@@ -71,6 +71,17 @@ const login = async (req, res) => {
     //to log a user in
     //1. check if a a user exists with the username
     const staff = await Staff.findOne({ username: username });
+    if (!staff) {
+      console.log(`${username} does not exist, please try again`);
+      res
+        .status(400)
+        .json({
+          status: false,
+          message: `${username} does not exist, please try again`,
+        });
+      return;
+    }
+
     //2. check if the password matches
     bcrypt.compare(password, staff.password, (err, isMatch) => {
       if (err) throw err;
@@ -78,7 +89,13 @@ const login = async (req, res) => {
 
       if (!isMatch) {
         console.log("not a match");
-        res.status(400).json({ status: false, error: `${username}  cannot be found please try again` });
+        res
+          .status(400)
+          .json({
+            status: false,
+            error: `the provided password does not match, please try again`,
+          });
+        return;
       }
 
       // 3.set the token and respond with it

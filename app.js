@@ -31,7 +31,7 @@ app.use(errorHandlerMiddleware);
 const start = async () => {
   try {
     app.listen(port, console.log(`Server is listening on port ${port}...`));
-    connectDB();
+   connectDB();
   } catch (error) {
     console.log(error);
   }
