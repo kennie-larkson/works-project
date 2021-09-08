@@ -4,7 +4,8 @@
   "description": "A backend services application built on the RESTful architecture",
   "main": "app.js",
   "scripts": {
-    "start": "app"
+    "start": "NODE_ENV=production node app.js",
+    "dev": "nodemon app.js"
   },
   "keywords": [
     "express.js",
